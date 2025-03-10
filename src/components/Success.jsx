@@ -1,11 +1,22 @@
 import axios from "axios"
 import { useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import loading from "../assets/loading.gif"
 
 export default function Success() {
 
+    const { state: {body, seat, seatName} } = useLocation()
     const navigate = useNavigate()
+
+    if (!seat.id) {
+        return (
+            <LoadingGif>
+                <img src={loading} alt="" />
+            </LoadingGif>
+        )
+    }
+
 
     return (
         <>
@@ -22,8 +33,8 @@ export default function Success() {
                     <Sep></Sep>
                     <FilmData>
                         <div>
-                            <h1>oi</h1>
-                            <h1>oi</h1>
+                            <h1>{seat.movie.title}</h1>
+                            <h1>{seat.day.date}, {seat.name}</h1>
                         </div>
                     </FilmData>
                     <Title>
@@ -34,29 +45,39 @@ export default function Success() {
                     <Sep></Sep>
                     <FilmData>
                         <div>
-                            <h1>oi</h1>
+                            {seatName.map((item, index) => (
+                                <h1 key={index}>Assento {item}</h1>
+                            ))}  
                         </div>
                     </FilmData>
                     <Title>
                         <div>
-                            <h1>Comprador</h1>
+                            <h1>Comprador(a)</h1>
                         </div>
                     </Title>
                     <Sep></Sep>
                     <FilmData1>
                         <div>
-                            <h1>oi</h1>
-                            <h1>oi</h1>
+                            <h1>Nome:&nbsp;&nbsp;{body.name}</h1>
+                            <h1>Cpf:&nbsp;&nbsp;{body.cpf}</h1>
                         </div>
                     </FilmData1>
                 </MovieDetail>
                 <FinishButton onClick={() => navigate('/')} type='subimit'>
-                    <h1>Reservar Assento(s)</h1>
+                    <h1>Voltar para a tela inicial!</h1>
                 </FinishButton>
             </Content>
         </>
     )
 }
+
+const LoadingGif = styled.div`
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+`
 
 const TitleMovie = styled.div`
     font-size: 10px;
@@ -93,22 +114,24 @@ const Title1 = styled.div`
 
 const FilmData = styled.div`
     color: #FFFFFF;
-    margin-left: 30px;
+    margin-left: 10px;
     width: 90%;
     h1 {
         font-size: 20px;
         background-color: #2B2D36;
+        font-weight: 200;
     }
 `
 
 const FilmData1 = styled.div`
     color: #FFFFFF;
-    margin-left: 30px;
+    margin-left: 10px;
     width: 90%;
     margin-bottom: 20px;
     h1 {
         font-size: 20px;
         background-color: #2B2D36;
+        font-weight: 200;
     }
 `
 
@@ -118,6 +141,7 @@ const Content = styled.div`
     justify-content: center;
     align-items: center;
     gap: 20px;
+    width: 100vw;
 `
 
 const MovieDetail = styled.div`
@@ -143,7 +167,7 @@ const FinishButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 75%;
     height: 42px;
     border-radius: 8px;
     background-color: #EE897F;

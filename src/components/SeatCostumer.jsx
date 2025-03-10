@@ -31,13 +31,16 @@ export default function SeatCostumer({name, setName, cpf, setCpf}) {
 const Costumer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 30px;
+    width: 100%;
 `
 
 const CostumerData = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 90%;
 
     label { 
         font-size: 16px;
@@ -46,7 +49,6 @@ const CostumerData = styled.div`
 
     input {
         border: 1px solid #D4D4D4;
-        width: 338px;
         height: 40px;
         border-radius: 8px;
         border-width: 1px;

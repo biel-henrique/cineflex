@@ -5,14 +5,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import TitleMovie from "./TitleMovie";
 import SeatSession from "./SeatSession";
 import SeatCostumer from "./SeatCostumer";
+import loading from "../assets/loading.gif"
 
 export default function Seats() {
 
     const { idSessao } = useParams()
-    const [seat, setSeat] = useState([])
+    const [seat, setSeat] = useState({})
     const [name, setName] = useState('')
     const [cpf, setCpf] = useState('')
     const [idSeat, setIdSeat] = useState([])
+    const [seatName, setSeatName] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -25,7 +27,12 @@ export default function Seats() {
         })
     },[])
 
-    const addIdSeat = (newId) => {
+    const addIdSeat = (newId, itemName) => {
+        setSeatName(prevState => {
+            return prevState.includes(itemName)
+            ? prevState.filter(item => item !== itemName)
+            : [...prevState, itemName]
+        })
         setIdSeat(prevState => {
            return prevState.includes(newId) 
             ? prevState.filter(item => item !== newId)
@@ -38,7 +45,7 @@ export default function Seats() {
         const body = {
             ids: [...idSeat],
             name: name,
-            cpf: cpf
+            cpf: cpf,
         }
 
         if (!idSeat.length) {
@@ -46,10 +53,18 @@ export default function Seats() {
         } else{
             axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', body)
             .then(res => 
-                navigate(`/sucesso`)
+                navigate(`/sucesso`, { state:{body, seat, seatName} })
             )
             .catch(error => console.log(error.response.data))
         }
+    }
+
+    if (!seat.id) {
+        return (
+            <LoadingGif>
+                <img src={loading} alt="" />
+            </LoadingGif>
+        )
     }
 
     return (
@@ -71,6 +86,14 @@ export default function Seats() {
     )
 }
 
+const LoadingGif = styled.div`
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+`
+
 const Site = styled.div`
     display: flex;
     flex-direction: column;
@@ -81,8 +104,9 @@ const Site = styled.div`
 const Form = styled.form`
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 40px;
-
+    width: 95%;
 `
 
 const SepTitle = styled.div`
@@ -118,7 +142,7 @@ const Booking = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 338px;
+    width: 70%;
     height: 42px;
     border-radius: 8px;
     background-color: #EE897F;

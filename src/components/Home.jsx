@@ -2,6 +2,7 @@ import styled from "styled-components"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import loading from "../assets/loading.gif"
 
 export default function Home() {
 
@@ -16,6 +17,14 @@ export default function Home() {
             console.log(error)
         })
     },[])
+
+    if (!movies.length) {
+        return (
+            <LoadingGif>
+                <img src={loading} alt="" />
+            </LoadingGif>
+        )
+    }
 
     return (
         <>
@@ -36,6 +45,14 @@ export default function Home() {
         </>
     )
 }
+
+const LoadingGif = styled.div`
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+`
 
 const Title = styled.div`
     display: flex;

@@ -6,7 +6,7 @@ export default function SeatSession({seats, id, addId}) {
             {seats?.map((item, index) => (
                 item.isAvailable ? (
                     <SeatNumber
-                        onClick={() => addId(item.id)}
+                        onClick={() => addId(item.id, item.name)}
                         $idSeat={id.includes(item.id)}
                         key={index}
                     >
@@ -29,6 +29,7 @@ const Seat = styled.div`
     justify-content: center;
     align-items: center;
     gap: 7px;
+    width: 90%;
 `
 
 const SeatNumber = styled.div`

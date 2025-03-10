@@ -3,11 +3,12 @@ import styled from "styled-components"
 import axios from "axios"
 import { Link, useParams } from "react-router-dom"
 import MovieSession from "./MovieSessions"
+import loading from "../assets/loading.gif"
 
 export default function FilmDate() {
 
     const { idFilme } = useParams()
-    const [session, setSession] = useState([])
+    const [session, setSession] = useState({})
 
     useEffect(() => {
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
@@ -19,6 +20,14 @@ export default function FilmDate() {
         })
     },[])
 
+    if (!session.id) {
+        return (
+            <LoadingGif>
+                <img src={loading} alt="" />
+            </LoadingGif>
+        )
+    }
+
     return (
         <>
             <Title>
@@ -29,6 +38,14 @@ export default function FilmDate() {
         </>
     )
 }
+
+const LoadingGif = styled.div`
+    display: flex;
+    height: 80vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+`
 
 const Title = styled.div`
     display: flex;
