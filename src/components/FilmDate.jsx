@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 export default function FilmDate() {
 
-    const { idFilme, Img } = useParams()
+    const { idFilme } = useParams()
     const [session, setSession] = useState([])
-    const [imgFilme, setImgFilme] = useState('')
 
     useEffect(() => {
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
         .then(res => {
-            console.log(res.data)
-            setSession(res.data.days)
-            setImgFilme(res.data)
+            setSession(res.data)
         })
         .catch(error => {
             console.log(error)
@@ -25,10 +22,10 @@ export default function FilmDate() {
         <>
             <Title>
                 <h1>Selecione o Horário</h1>
-                <img src={imgFilme.posterURL} alt="" />
+                <img src={session.posterURL} alt="" />
             </Title>
             <Content>
-                {session.map((item, index) => {
+                {session.days?.map((item, index) => {
                     return (
                         <Item key={index}>
                             <h1>{item.weekday}, {item.date}</h1>
@@ -36,9 +33,9 @@ export default function FilmDate() {
                             <Hour>
                                 {item.showtimes.map((showtime, index) => {
                                     return (
-                                        <div key={index}>
+                                        <HourLink key={index} to={`/assentos/${showtime.id}`}>
                                             <div>{showtime.name}</div>
-                                        </div>
+                                        </HourLink>
                                 )})}
                             </Hour>
                         </Item>
@@ -117,16 +114,22 @@ const Hour = styled.div`
     border: #2B2D36;
     gap: 10px;
 
+`
+
+const HourLink = styled(Link)`
+    display: flex;
+    justify-content: center;
+    color: #EE897F;
+    font-size: 16px;
+    align-items: center;
+    background-color: #2B2D36;
+    width: 84px;
+    height: 41px;
+    border: 2px solid #EE897F;
+    text-decoration: none;
+
     div {
-        display: flex;
-        justify-content: center;
-        color: #EE897F;
-        font-size: 16px;
-        align-items: center;
         background-color: #2B2D36;
-        width: 84px;
-        height: 41px;
-        border: 2px solid #EE897F;
     }
 `
 

@@ -5,13 +5,13 @@ import { Link } from "react-router-dom"
 
 export default function Home() {
 
-    const [movies, setMoveis] = useState([])
+    const [movies, setMovies] = useState([])
 
     useEffect(() => {
         axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies')
         .then(res => {
             console.log(res.data)
-            setMoveis(res.data)
+            setMovies(res.data)
         })
         .catch(error => {
             console.log(error)
@@ -20,7 +20,9 @@ export default function Home() {
 
     return (
         <>
-            <Title>Em Cartaz</Title>
+            <Title> 
+               <h1>Em Cartaz</h1>
+            </Title>
             <div>
                 <Content>
                     {movies.map((item, index) => {
@@ -43,7 +45,9 @@ const Title = styled.div`
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
-    font-size: 24px;
+    h1 {
+        font-size: 24px;
+    }
 `
 
 const Content = styled.div`
