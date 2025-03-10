@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Header() {
     return (
         <TopHeader>
-            <ion-icon name="film-outline"></ion-icon>
-            <h1>Cineflex</h1>
+            <Icon to={'/'}>
+                <ion-icon name="film-outline"></ion-icon>
+            </Icon>
+            <Title to={'/'}>Cineflex</Title>
         </TopHeader>
     )
 }
@@ -18,15 +21,25 @@ const TopHeader = styled.div`
     align-items: center;
     gap: 10px;
     color: #FADBC5;
-    h1 {
-       font-size: 2.5rem;
-       font-weight: 600;
-       font-family: 'Raleway', sans-serif;
-       background-color: #EE897F;
-    }
+    text-decoration: none;
+`
 
-    ion-icon{
-        font-size: 2.5rem;
+const Title = styled(Link)`
+    font-size: 2.5rem;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+    background-color: #EE897F;
+    text-decoration: none;
+    color: #FADBC5;
+`
+
+const Icon = styled(Link)`
+    color: #FADBC5;
+    text-decoration: none;
+    font-size: 2.5rem;
+    background-color: #EE897F;
+    display: flex;
+    ion-icon {
         background-color: #EE897F;
     }
 `

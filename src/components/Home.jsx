@@ -10,7 +10,6 @@ export default function Home() {
     useEffect(() => {
         axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies')
         .then(res => {
-            console.log(res.data)
             setMovies(res.data)
         })
         .catch(error => {
