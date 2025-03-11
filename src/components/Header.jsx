@@ -22,6 +22,9 @@ const TopHeader = styled.div`
     gap: 10px;
     color: #FADBC5;
     text-decoration: none;
+    position: fixed;
+    top: 0;
+    left: 0;
 `
 
 const Title = styled(Link)`

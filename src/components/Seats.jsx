@@ -99,6 +99,7 @@ const Site = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    padding-top: 67px;
 `
 
 const Form = styled.form`

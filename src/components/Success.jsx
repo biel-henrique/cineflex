@@ -19,7 +19,7 @@ export default function Success() {
 
 
     return (
-        <>
+        <Site>
             <TitleMovie>
                 <h1>Pedido finalizado!</h1>
             </TitleMovie>
@@ -67,9 +67,13 @@ export default function Success() {
                     <h1>Voltar para a tela inicial!</h1>
                 </FinishButton>
             </Content>
-        </>
+        </Site>
     )
 }
+
+const Site = styled.div`
+    padding-top: 67px;
+`
 
 const LoadingGif = styled.div`
     display: flex;

@@ -27,12 +27,12 @@ export default function Home() {
     }
 
     return (
-        <>
+        <Site>
             <Title> 
                <h1>Em Cartaz</h1>
             </Title>
-            <div>
-                <Content>
+            <Content>
+                <Subcontent>
                     {movies.map((item, index) => {
                         return (
                             <Imagem to={`/sessoes/${item.id}`} key={index}>
@@ -40,11 +40,15 @@ export default function Home() {
                             </Imagem>
                         )
                     })}
-                </Content>
-            </div>
-        </>
+                </Subcontent>
+            </Content>
+        </Site>
     )
 }
+
+const Site = styled.div`
+    margin-top: 67px;
+`
 
 const LoadingGif = styled.div`
     display: flex;
@@ -61,17 +65,25 @@ const Title = styled.div`
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
+    position: fixed;
+    top: 67;
+    left: 0;
     h1 {
         font-size: 24px;
     }
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 `
 
-const Content = styled.div`
+const Subcontent = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 26px;
     width: 100vw;
+`
+
+const Content = styled.div`
+    padding-top: 104px;
 `
 
 const Imagem = styled(Link)`
