@@ -112,7 +112,7 @@ const Form = styled.form`
 
 const SepTitle = styled.div`
     height: 1px;
-    width: 80%;
+    width: 90%;
     border-width: 1px;
     background-color: #4E5A65;
     border-radius: 1px;
@@ -133,7 +133,7 @@ const Content = styled.div`
 
 const Sep = styled.div`
     height: 1px;
-    width: 85%;
+    width: 95%;
     border-width: 1px;
     background-color: #4E5A65;
     border-radius: 1px;

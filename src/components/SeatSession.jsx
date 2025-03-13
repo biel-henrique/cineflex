@@ -29,7 +29,7 @@ const Seat = styled.div`
     justify-content: center;
     align-items: center;
     gap: 7px;
-    width: 90%;
+    width: 350px;
 `
 
 const SeatNumber = styled.div`
